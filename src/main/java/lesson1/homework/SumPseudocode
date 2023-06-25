@@ -1,0 +1,6 @@
+START
+    WRITE "Input 3 integers"
+	READ x, y, z
+	sum = x + y + z
+	WRITE "Sum equals: ", sum
+END

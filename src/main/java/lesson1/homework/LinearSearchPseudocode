@@ -1,0 +1,14 @@
+START
+    FOR i = 0 TO 10 REPEAT
+        array[i] = random integer 1 to 9 inclusive
+    WRITE "Guess the integer [1-9]: "
+    READ guess
+    found = false
+    FOR i = 0 TO the end of the array REPEAT
+        IF element = guess THEN
+            WRITE "Found in index: ", i
+            found = true
+    IF NOT found THEN
+        WRITE "Not found"
+    WRITE "These were the numbers: ", randomArray
+END
