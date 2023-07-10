@@ -11,7 +11,11 @@ public class ListTester {
         System.out.println(test);
         System.out.println(test.get(4));
         test.remove(1);
-        System.out.println(test);
+        System.out.println("After rem: " + test);
+        System.out.println(test.size());
+        test.add(2, 9);
+        test.add(1, 2);
+        System.out.println("After add: " + test);
         System.out.println(test.size());
     }
 }

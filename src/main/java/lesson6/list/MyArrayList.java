@@ -64,7 +64,17 @@ public class MyArrayList implements MyList {
 
     @Override
     public void add(int index, int value) {
-
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (size() == data.length) {
+            increaseCapacity();
+        }
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = value;
+        size++;
     }
 
     @Override
