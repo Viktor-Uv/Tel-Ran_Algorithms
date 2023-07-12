@@ -1,6 +1,30 @@
 package lesson6.list;
 
-public class MyArrayList implements MyList {
+import java.util.Iterator;
+
+public class MyArrayList implements MyList, Iterable<Integer> {
+
+    public Iterator<Integer> iterator() {
+        return new Iterator<Integer>() {
+            // номер текущего элемента
+            private int position = -1;
+
+            @Override
+            public boolean hasNext() {
+                return ++position < size;
+            }
+
+            @Override
+            public Integer next() {
+                return get(position);
+            }
+
+            @Override
+            public void remove() {
+                MyArrayList.this.remove(position--);
+            }
+        };
+    }
 
     // количество заполненных элементов, видимый пользователю размер контейнера
     private int size = 0;
