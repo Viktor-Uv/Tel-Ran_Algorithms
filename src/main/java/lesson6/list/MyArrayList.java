@@ -1,8 +1,65 @@
 package lesson6.list;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class MyArrayList implements MyList, Iterable<Integer> {
+
+    // Homework 4, Task *5
+    public Iterator<Integer> reversedIterator() {
+        return new Iterator<Integer>() {
+            private int position = size;
+
+            @Override
+            public boolean hasNext() {
+                return --position >= 0;
+            }
+
+            @Override
+            public Integer next() {
+                return get(position);
+            }
+
+            @Override
+            public void remove() {
+                MyArrayList.this.remove(position++);
+            }
+        };
+    }
+
+    // Homework 4, Task **6
+    public Iterator<Integer> ascendingIterator() {
+        return new Iterator<Integer>() {
+            private int position = -1;
+//            private int minReturned = returnMin() - 1;
+            private final int[] sortedArray = copyOfList();
+
+            @Override
+            public boolean hasNext() {
+                return ++position < size;
+            }
+
+            @Override
+            public Integer next() {
+                return sortedArray[position];
+            }
+
+            @Override
+            public void remove() {
+                MyArrayList.this.remove(position--);
+            }
+
+            private int[] copyOfList() {
+                int[] copy = new int[size];
+                for (int i = 0; i < size; i++) {
+                    copy[i] = get(i);
+                }
+                Arrays.sort(copy);
+                return copy;
+            }
+        };
+    }
 
     public Iterator<Integer> iterator() {
         return new Iterator<Integer>() {
@@ -51,6 +108,28 @@ public class MyArrayList implements MyList, Iterable<Integer> {
     }
 
     @Override
+    public int returnMin() {
+        int min = get(0);
+        for (int i = 0; i < size; i++) {
+            if (min > get(i)) {
+                min = get(i);
+            }
+        }
+        return min;
+    }
+
+    @Override
+    public int returnMax() {
+        int max = get(0);
+        for (int i = 0; i < size; i++) {
+            if (max < get(i)) {
+                max = get(i);
+            }
+        }
+        return max;
+    }
+
+    @Override
     public void set(int index, int value) {
         // проверить что index находится в диапазоне 0 <= index < size
         // если не так, выбросим исключение
@@ -71,6 +150,21 @@ public class MyArrayList implements MyList, Iterable<Integer> {
         data[size] = value;
         // увеличить size
         size++;
+    }
+
+    // Homework 4, Task *5
+    @Override
+    public void addAll(List<Integer> list) {
+        // добавление списка элементов в конец
+        for (int element : list) {
+            if (size() == data.length) {
+                increaseCapacity();
+            }
+            // добавить в конец элемент value
+            data[size] = element;
+            // увеличить size
+            size++;
+        }
     }
 
     private void increaseCapacity() {
