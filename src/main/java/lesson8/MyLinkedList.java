@@ -97,7 +97,7 @@ public class MyLinkedList implements MyList {
 
     @Override
     public void set(int index, int value) {
-
+        getNodeByIndex(index).setValue(value);
     }
 
     @Override

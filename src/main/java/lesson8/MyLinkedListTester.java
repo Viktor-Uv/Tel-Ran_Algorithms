@@ -27,5 +27,8 @@ public class MyLinkedListTester {
 
         System.out.println("\nRemove: " + list.removeFirst());
         System.out.println(list + " size: " + list.size());
+
+        list.set(1, 4);
+        System.out.println("\n" + list + " size: " + list.size());
     }
 }
