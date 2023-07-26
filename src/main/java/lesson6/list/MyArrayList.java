@@ -32,7 +32,6 @@ public class MyArrayList implements MyList, Iterable<Integer> {
     public Iterator<Integer> ascendingIterator() {
         return new Iterator<Integer>() {
             private int position = -1;
-//            private int minReturned = returnMin() - 1;
             private final int[] sortedArray = copyOfList();
 
             @Override
