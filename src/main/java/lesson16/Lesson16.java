@@ -1,4 +1,4 @@
-package lesson16; // Date 16.08.2023
+package lesson16; // Date 16.08.2023, 21.08.2023
 
 import lesson16.MyBinaryTree.Vortex;
 
@@ -24,5 +24,13 @@ public class Lesson16 {
 
         MyBinaryTree tree = new MyBinaryTree(v8);
         System.out.println(tree);
+
+        System.out.println(tree.countVertices());
+        System.out.println(tree.depth());
+
+        tree.add(12);
+        tree.add(14);
+        System.out.println(tree);
+
     }
 }
