@@ -17,7 +17,7 @@ public class MyHashMap implements MyMap {
 
         @Override
         public String toString() {
-            return "{" + key + ":" + value + "}";
+            return "{" + key + "=" + value + "}";
         }
     }
 
@@ -90,6 +90,21 @@ public class MyHashMap implements MyMap {
     }
 
     private void rebalance() {
+        Pair[] newSource = new Pair[2 * source.length];
+        for(Pair currentPair : source) { // iterate buckets in the original array
+            while (currentPair != null) { // iterate pairs in a given bucket
+                Pair savedCurrentsNextPair = currentPair.next; // save origin's next pairs
+
+                int bucket = Math.abs( // find bucket in the new array of buckets
+                        currentPair.key.hashCode()
+                ) % newSource.length;
+
+                currentPair.next = newSource[bucket]; // save existing pairs in the bucket (if any)
+                newSource[bucket] = currentPair; // reassign bucket with new pair-->existing pairs
+                currentPair = savedCurrentsNextPair; // move origin's 'next' pairs one step up
+            }
+        }
+        source = newSource; // reassign old source
     }
 
     // Возвращение значения из пары по ключу
@@ -104,6 +119,36 @@ public class MyHashMap implements MyMap {
 
     @Override
     public String remove(String key) {
+        // Returns:
+        // the previous value associated with key, or null if there was no mapping for key.
+
+        int bucket = findBucket(key); // find bucket where the key is stored
+        Pair currentPair = source[bucket];
+
+        // 1st case: when bucket is empty
+        if (currentPair == null) {
+            return null;
+        }
+
+        // 2nd case: when wanted pair is in the head of the pair array
+        if (currentPair.key.equals(key)) {
+            source[bucket] = currentPair.next;
+            size--;
+            return currentPair.value;
+        }
+
+        // 3rd case: when wanted pair is within LinkedList
+        while (currentPair.next != null) {
+            if(currentPair.next.key.equals(key)) {
+                Pair toDelete = currentPair.next;
+                currentPair.next = toDelete.next;
+                size--;
+                return toDelete.value;
+            }
+            currentPair = currentPair.next;
+        }
+
+        // 4th case: when no value found
         return null;
     }
 
@@ -111,10 +156,9 @@ public class MyHashMap implements MyMap {
     public String toString() {
         String r = "[";
         int s = size() - 1;
-        for (Pair p : source) {
-            Pair current = p;
+        for (Pair current : source) {
             while (current != null) {
-                r += p;
+                r += current;
                 if (--s >= 0) {
                     r += ", ";
                 }
