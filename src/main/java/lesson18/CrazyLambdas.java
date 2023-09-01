@@ -111,7 +111,7 @@ public class CrazyLambdas {
      * @return string to int converter
      */
     public static ToIntFunction<String> stringToIntConverter() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return Integer::parseInt;
     }
 
     /**
@@ -122,7 +122,12 @@ public class CrazyLambdas {
      * @return a function supplier
      */
     public static Supplier<IntUnaryOperator> nMultiplyFunctionSupplier(int n) {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new Supplier<IntUnaryOperator>() {
+            @Override
+            public IntUnaryOperator get() {
+                return x -> n * x;
+            }
+        };
     }
 
     /**
@@ -131,7 +136,12 @@ public class CrazyLambdas {
      * @return function that composes functions with trim() function
      */
     public static UnaryOperator<Function<String, String>> composeWithTrimFunction() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new UnaryOperator<Function<String, String>>() {
+            @Override
+            public Function<String, String> apply(Function<String, String> stringStringFunction) {
+                return stringStringFunction.compose(String::trim);
+            }
+        };
     }
 
     /**
