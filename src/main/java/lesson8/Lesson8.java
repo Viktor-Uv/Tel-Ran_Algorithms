@@ -40,7 +40,7 @@ public class Lesson8 {
         if (amount == 0) {
             return result;
         }
-        return Collections.EMPTY_LIST;
+        return new ArrayList<>();
     }
 
     static List<Integer> taskSelection(List<Integer> tasks, int maxTime) {
