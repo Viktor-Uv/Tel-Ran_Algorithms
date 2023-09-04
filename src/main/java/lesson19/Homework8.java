@@ -62,6 +62,7 @@ public class Homework8 {
 
         System.out.println("Result of Task 4: " +
                 employees.stream()
+                        .filter(e -> e.getPosition().equals("programmer")) // correction
                         .map(e -> e.getName().split(" ")[1])
                         .filter(s -> !s.endsWith("a"))
                         .count()
@@ -108,11 +109,7 @@ public class Homework8 {
         System.out.println("Result of Task 10: " +
                 employees.stream()
                         .collect(Collectors.groupingBy(
-                                e -> {
-                                    String fullName = e.getName();
-                                    String familyName = fullName.split(" ")[1];
-                                    return familyName.endsWith("a");
-                                },
+                                e -> e.getName().endsWith("a"), // optimisation
                                 Collectors.averagingDouble(Employee::getAge)
                         ))
         );
