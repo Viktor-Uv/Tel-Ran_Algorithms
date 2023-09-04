@@ -152,16 +152,31 @@ public class CrazyLambdas {
      * @return a thread supplier
      */
     public static Supplier<Thread> runningThreadSupplier(Runnable runnable) {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new Supplier<Thread>() {
+            @Override
+            public Thread get() {
+                // создать новый поток из runnable
+                Thread thread = new Thread(runnable);
+                // запустить его
+                thread.start();
+                // вернуть запущенный поток
+                return thread;
+            }
+        };
     }
 
     /**
-     * Returns a {@link Consumer} that accepts {@link Runnable} as a parameter and runs in in a new thread.
+     * Returns a {@link Consumer} that accepts {@link Runnable} as a parameter and runs it in a new thread.
      *
      * @return a runnable consumer
      */
     public static Consumer<Runnable> newThreadRunnableConsumer() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new Consumer<Runnable>() {
+            @Override
+            public void accept(Runnable runnable) {
+                new Thread(runnable).start();
+            }
+        };
     }
 
     /**
@@ -171,7 +186,19 @@ public class CrazyLambdas {
      * @return a function that transforms runnable into a thread supplier
      */
     public static Function<Runnable, Supplier<Thread>> runnableToThreadSupplierFunction() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new Function<Runnable, Supplier<Thread>>() {
+            @Override
+            public Supplier<Thread> apply(Runnable runnable) {
+                return new Supplier<Thread>() {
+                    @Override
+                    public Thread get() {
+                        Thread thread = new Thread(runnable);
+                        thread.start();
+                        return thread;
+                    }
+                };
+            }
+        };
     }
 
     /**
@@ -199,11 +226,26 @@ public class CrazyLambdas {
     }
 
     /**
-     * Returns {@link Supplier} of {@link Supplier} of {@link Supplier} of {@link String} "WELL DONE".
+     * Returns {@link Supplier} of {@link Supplier} of {@link Supplier} of {@link String} "WELL DONE!".
      *
      * @return a supplier instance
      */
     public static Supplier<Supplier<Supplier<String>>> trickyWellDoneSupplier() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new Supplier<Supplier<Supplier<String>>>() {
+            @Override
+            public Supplier<Supplier<String>> get() {
+                return new Supplier<Supplier<String>>() {
+                    @Override
+                    public Supplier<String> get() {
+                        return new Supplier<String>() {
+                            @Override
+                            public String get() {
+                                return "WELL DONE!";
+                            }
+                        };
+                    }
+                };
+            }
+        };
     }
 }

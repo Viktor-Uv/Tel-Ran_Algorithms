@@ -3,7 +3,6 @@ package lesson19;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EmpTester {
@@ -46,5 +45,20 @@ public class EmpTester {
                         .distinct() // оставить только уникальные
                         .count()
         );
+
+
+        // распечатайте фамилии всех женщин - оканчивающиеся на "a" (Filimonova , Drogova)
+        employees.stream()
+        // отфильтровать записи с именем на "a"
+                .filter(s -> s.getName().endsWith("a"))
+        // замапить в name
+                .map(e -> e.getName())
+        // замапить в массив разбив по пробелу
+                .map(n -> n.split(" "))
+        // "".split(" ")
+        // замапить во "второй" элемент массива
+                .map(s -> s[1])
+                .forEach(System.out::println);
+
     }
 }
