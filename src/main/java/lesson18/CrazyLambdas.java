@@ -211,7 +211,20 @@ public class CrazyLambdas {
      * @return a binary function that receiver predicate and function and compose them to create a new function
      */
     public static BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> functionToConditionalFunction() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator>() {
+            @Override
+            public IntUnaryOperator apply(IntUnaryOperator intUnaryOperator, IntPredicate intPredicate) {
+                return new IntUnaryOperator() {
+                    @Override
+                    public int applyAsInt(int operand) {
+                        if (intPredicate.test(operand)) {
+                            return intUnaryOperator.applyAsInt(operand);
+                        }
+                        return operand;
+                    }
+                };
+            }
+        };
     }
 
     /**
@@ -222,7 +235,20 @@ public class CrazyLambdas {
      * @return a high-order function that fetches a function from a function map by a given name or returns identity()
      */
     public static BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> functionLoader() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return new BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator>() {
+            @Override
+            public IntUnaryOperator apply(Map<String, IntUnaryOperator> stringIntUnaryOperatorMap, String s) {
+                return new IntUnaryOperator() {
+                    @Override
+                    public int applyAsInt(int operand) {
+                        if (stringIntUnaryOperatorMap.containsKey(s)) {
+                            return stringIntUnaryOperatorMap.get(s).applyAsInt(operand);
+                        }
+                        return IntUnaryOperator.identity().applyAsInt(operand);
+                    }
+                };
+            }
+        };
     }
 
     /**
