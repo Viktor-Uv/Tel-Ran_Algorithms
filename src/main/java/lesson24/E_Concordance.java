@@ -15,7 +15,9 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class E_Concordance {
@@ -48,23 +50,37 @@ public class E_Concordance {
                             .toList();
 
             // .rangeClosed() creates a stream of integers from 0 to the size of the list of lines:
-            IntStream.rangeClosed(0, lines.size()) // 0, 1, 2, 3
+            IntStream.rangeClosed(0, lines.size() - 1) // 0, 1, 2, 3
                     // Map each line index to a pair of the index and the corresponding line
                     .mapToObj(i -> new AbstractMap.SimpleEntry<>(i, lines.get(i))) // 3-> "cool hate"
                     // Flatten the pairs into pairs of words and line indexes
                     .flatMap(
-                            p -> Arrays.stream(p.getValue().split(" "))
-                            .map(w -> new AbstractMap.SimpleEntry<>(w, p.getKey()))
-                    ); // "cool" -> 3
+                            p -> Arrays.stream(p.getValue().split(" ")) // stream of words
+                                    .map(w -> new AbstractMap.SimpleEntry<>(w, p.getKey()))
+                    ) // "cool" -> 3
+
+                    // ==== Homework 11 ====
+                    // создайте Map<String, List<Integer>>
+                    // List<Integer>> - номера строк в которых это слово встречалось
+                    // "this" -> [0, 1, 2]
+                    // "cool" -> [0, 3]
+                    .collect(Collectors.groupingBy(
+                            // Group the entries of the map by their keys
+                            AbstractMap.SimpleEntry::getKey,
+                            // Transform stream of map entries into a stream of their values and collect them
+                            Collectors.mapping(
+                                    // Collect the values in a LinkedHashSet to preserve order
+                                    AbstractMap.SimpleEntry::getValue,
+                                    Collectors.toCollection(LinkedHashSet::new)
+                            )
+                    ))
+                    // Print key:value pairs each on a new line
+                    .forEach(
+                            (k, v) -> System.out.println(k + ":" + v)
+                    );
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
-        // создайте Map<String, List<Integer>>
-        // List<Integer>> - номера строк в которых это слово встречалось
-        // "this" -> [0, 1, 2]
-        // "cool" -> [0, 3]
-
     }
 }
