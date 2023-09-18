@@ -24,10 +24,18 @@ import java.io.Reader;
 public class Homework11 {
     public static void main(String[] args) {
         // Task 1 test:
-        printLineCount("./src/main/java/lesson24/files/cars.txt");
+        try {
+            printLineCount("./src/main/java/lesson24/files/cars.txt");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
         // Task 2 test:
-        printSubstringLineCount("./src/main/java/lesson24/files/cars.txt", "maker");
+        try {
+            printSubstringLineCount("./src/main/java/lesson24/files/cars.txt", "maker");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
         // Task 3: please, follow the link below and see the line 62
         /* https://github.com/Viktor-Uv/Tel-Ran_JavaPro/blob/main/src/main/java/lesson24/E_Concordance.java */
@@ -35,7 +43,7 @@ public class Homework11 {
     } // Main
 
     // Task 1 implementation:
-    public static void printLineCount(String path) {
+    public static void printLineCount(String path) throws Exception {
         try (
                 Reader fileReader = new FileReader(path);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -44,13 +52,11 @@ public class Homework11 {
                     bufferedReader.lines()
                             .count()
             );
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
     }
 
     // Task 2 implementation:
-    public static void printSubstringLineCount(String path, String substring) {
+    public static void printSubstringLineCount(String path, String substring) throws Exception {
         try (
                 Reader fileReader = new FileReader(path);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -60,8 +66,6 @@ public class Homework11 {
                             .filter(line -> line.contains(substring))
                             .count()
             );
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
     }
 
