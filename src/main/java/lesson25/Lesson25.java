@@ -139,6 +139,26 @@ public class Lesson25 {
             System.out.printf("first: %s, last: %s\n", namesMatcher.group(1), namesMatcher.group(2));
         }
 
+        // разбейте на части по ';' и по '|' и распечатайте составные части
+        String employeeData = "michael;levanov|34|34000";
+        System.out.println(
+                Arrays.toString(
+                        employeeData.split("[;|]")
+                )
+        );
+
+        System.out.println("=== замена ===");
+        String temperature = "Today's temperature is 18 degrees centigrade";
+        temperature = temperature
+                .replaceAll("\\d+", "45")
+                .replaceAll("centi", "milli");
+        System.out.println(temperature);
+
+        String numbers = "one two three four zero";
+        numbers = numbers
+                .replaceAll("(t\\w+)", "_&1_");
+        System.out.println(numbers);
+
     } // Main
 
     // функция должна возвращать расширение файла

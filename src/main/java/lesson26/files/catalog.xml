@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CATALOG name="NAME" size="BIG">
+    <PLANT>
+        <AVAILABILITY>AVAILABLE</AVAILABILITY>
+        <BOTANICAL>BOTANICAL</BOTANICAL>
+        <COMMON>COMMON</COMMON>
+        <LIGHT>LIGHT</LIGHT>
+        <PRICE>$123</PRICE>
+        <ZONE>ZONE</ZONE>
+    </PLANT>
+</CATALOG>
