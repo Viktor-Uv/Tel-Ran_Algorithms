@@ -46,6 +46,8 @@ public class Homework12 {
         // Task 3* test:
         mapAllIntsToDouble("прибыль 12 расходы 20 доходы 50.3");
         // Output: прибыль 12.0 расходы 20.0 доходы 50.3
+        mapAllIntsToDouble("1 день прибыль 12 расходы 20 доходы 50.3 итого 9");
+        // Output: 1.0 день прибыль 12.0 расходы 20.0 доходы 50.3 итого 9.0
 
         // Task 4* implementation:
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -83,6 +85,7 @@ public class Homework12 {
 
     // Task 3* implementation:
     public static void mapAllIntsToDouble(String s) {
+        /*
         StringBuilder sb = new StringBuilder();
         for (String word : s.split("\\s")) {
             if (word.matches("\\d+")) {
@@ -92,5 +95,15 @@ public class Homework12 {
         }
         sb.deleteCharAt(sb.length() - 1); // remove trailing space
         System.out.println(sb);
+        */
+
+        // Second solution 25.09.2023
+        System.out.println(
+                // ^ - символ начала строки
+                // $ - символ конца строки
+                // $1 / $2 / $3 - группы
+                //                    $1     $2    $3
+                s.replaceAll("(\\s|^)(\\d+)(\\s|$)", "$1$2.0$3")
+        );
     }
 }
