@@ -47,7 +47,47 @@ public class GenericTester {
                 )
         );
 
+        // Homework 13, 28.09.2023, Task 1 test:
+        System.out.println(equals(
+                masha,
+                new PairImpl<>("Masha", 24)
+        )); // Output: true
+        System.out.println(equals(
+                new PairImpl<>(1, 1.0),
+                new PairImpl<>(1.0, 1)
+        )); // Output: false
+
+        // Homework 13, 28.09.2023, Task 2 test:
+        System.out.println(filter(
+                countriesList,
+                s -> s.length() < 9
+        )); // Output: [Cuba, Salvador, Albania]
+
     } // Main
+
+    // Homework 13, 28.09.2023, Task 1:
+    //
+    // Напишите в классе GenericTester функцию equals, которая сравнит две пары.
+    // Пары равны если равны оба их элемента
+    // public static boolean equals(Pair p1, Pair p2)
+    public static <T, R> boolean equals(Pair<T, R> p1, Pair<T, R> p2) {
+        if (p1 == p2)  {
+            return true;
+        } else return p1.first().equals(p2.first()) &&
+                p1.second().equals(p2.second());
+    }
+
+    // Homework 13, 28.09.2023, Task 2:
+    //
+    // Напишите в классе GenericTester функцию filter, которая принимает список
+    // любого типа и предикат и возвращает список только из тех элементов,
+    // которые предикату соответствуют.
+    // public static  List filter(List t, Predicate p)
+    public static <T> List<T> filter(List<T> t, Predicate<T> p) {
+        return t.stream()
+                .filter(p)
+                .collect(Collectors.toList());
+    }
 
     public static <T, R> List<R> fromArrayToList(
             T[] a,
