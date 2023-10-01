@@ -41,4 +41,11 @@ public class JapaneseEmployee {
     // и для всех экземпляров класса
     public static final int coefficient = 50_000;
 
+    public String greetings() {
+        if (years >= 5)
+            return "Good day, " + name;
+        else
+            return "Hello, " + name;
+    }
+
 } // окончание

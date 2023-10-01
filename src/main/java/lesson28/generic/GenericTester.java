@@ -63,7 +63,32 @@ public class GenericTester {
                 s -> s.length() < 9
         )); // Output: [Cuba, Salvador, Albania]
 
+        Double[] numbers = {1.0, 4.33, -12.3, 34.2};
+        System.out.println(
+                fromNumberToList(numbers, 1.2)
+        );
+
     } // Main
+
+    public static <T extends Number & Comparable<T>> List<T> fromNumberToList(T[] array, T bound) {
+        // <T extends Number & Comparable<T>> - type limitations
+        return Arrays.stream(array)
+                // .compareTo() exists in Comparable
+                .filter(n -> n.compareTo(bound) > 0)
+                .peek(n -> System.out.println("number: " + n.doubleValue()))
+                .collect(Collectors.toList());
+    }
+
+    // Хотелось бы чтобы в функцию можно было бы передать не все типы/классы,
+    // а только некоторые
+    // Integer, Float, Double ... потомки Number
+    public static <T extends Number> List<T> fromNumberToList(T[] array) {
+        // <T extends Number> - type limitation
+        return Arrays.stream(array)
+                // .doubleValue() exists in Number
+                .peek(n -> System.out.println("number: " + n.doubleValue()))
+                .collect(Collectors.toList());
+    }
 
     // Homework 13, 28.09.2023, Task 1:
     //
