@@ -106,6 +106,7 @@ public class Homework14Test {
     @Test
     public void testRemove() {
         System.out.println("Testing .remove(int)");
+        list.set(0, "String");
         Object toRemove = list.get(0);
         int sizeBefore = list.size();
         list.remove(0);

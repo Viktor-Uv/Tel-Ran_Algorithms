@@ -17,18 +17,18 @@ import lesson28.generic.list.MyGenericList;
 public class Homework14 {
     // Generic LinkedList implementation:
     public static class MyGenericLinkedList<T> implements MyGenericList<T> {
-        private Node head; // голова списка - первый узел
+        private Node<T> head; // голова списка - первый узел
         private int size = 0; // количество элементов в списке
 
-        private class Node {
+        private class Node<T> {
             private T value; // значение элемента
-            private Node next; // ссылка на следующий узел
+            private Node<T> next; // ссылка на следующий узел
 
             public Node(T value) {
                 this.value = value;
             }
 
-            public Node(T value, Node next) {
+            public Node(T value, Node<T> next) {
                 this.value = value;
                 this.next = next;
             }
@@ -41,17 +41,17 @@ public class Homework14 {
                 this.value = value;
             }
 
-            public Node getNext() {
+            public Node<T> getNext() {
                 return next;
             }
 
-            public void setNext(Node next) {
+            public void setNext(Node<T> next) {
                 this.next = next;
             }
         } // Node Class
 
-        private Node getNodeByIndex (int index) {
-            Node n = head;
+        private Node<T> getNodeByIndex (int index) {
+            Node<T> n = head;
             // Try to iterate over every Node until index is reached
             for (int i = 0; i < index; i++) {
                 if (n == null) {
@@ -69,9 +69,9 @@ public class Homework14 {
 
         @Override
         public boolean contains(T value) {
-            Node n = head;
+            Node<T> n = head;
             while (n != null) {
-                if (n.getValue() == value) {
+                if (n.getValue().equals(value)) {
                     return true;
                 }
                 n = n.getNext();
@@ -81,7 +81,7 @@ public class Homework14 {
 
         @Override
         public void set(int index, T value) {
-            Node n = getNodeByIndex(index);
+            Node<T> n = getNodeByIndex(index);
             if (n == null) {
                 return;
             }
@@ -92,10 +92,10 @@ public class Homework14 {
         public void add(T value) {
             if (size() == 0) {
                 // when head == null
-                head = new Node(value);
+                head = new Node<>(value);
             } else {
                 // when head != null
-                getNodeByIndex(size() - 1).setNext(new Node(value));
+                getNodeByIndex(size() - 1).setNext(new Node<>(value));
             }
             size++;
         }
@@ -103,11 +103,11 @@ public class Homework14 {
         @Override
         public void add(int index, T value) {
             if (index == 0) {
-                Node prevHead = head;
-                head = new Node(value, prevHead);
+                Node<T> prevHead = head;
+                head = new Node<>(value, prevHead);
             } else {
-                Node prev = getNodeByIndex(index - 1);
-                Node newNode = new Node(value, prev.getNext());
+                Node<T> prev = getNodeByIndex(index - 1);
+                Node<T> newNode = new Node<>(value, prev.getNext());
                 prev.setNext(newNode);
             }
             size++;
@@ -122,17 +122,15 @@ public class Homework14 {
                 head = head.getNext(); // head - is the Node to be deleted
             } else {
                 // Get Node at the previous index that will skip over the Node at the given index
-                Node prev = getNodeByIndex(index - 1);
-                if (prev == null) {
-                    return;
+                Node<T> prev = getNodeByIndex(index - 1);
+                if (prev != null) {
+                    // get the Node to be deleted (at the given index)
+                    Node<T> current = prev.getNext(); // current - is the Node to be deleted
+                    if (current != null) {
+                        // Skip over the current Node
+                        prev.setNext(current.getNext());
+                    }
                 }
-                // get the Node to be deleted (at the given index)
-                Node current = prev.getNext(); // current - is the Node to be deleted
-                if (current == null) {
-                    return;
-                }
-                // Skip over the current Node
-                prev.setNext(current.getNext());
             }
             // Decrement the size of the LinkedList if remove() completed successfully
             size--;
@@ -140,7 +138,7 @@ public class Homework14 {
 
         @Override
         public T get(int index) {
-            Node n = getNodeByIndex(index);
+            Node<T> n = getNodeByIndex(index);
             if (n == null) {
                 return null;
             } else {
@@ -151,7 +149,7 @@ public class Homework14 {
         @Override
         public String toString() {
             StringBuilder r = new StringBuilder("[");
-            Node n = head;
+            Node<T> n = head;
             while (n != null) {
                 r.append(n.getValue());
                 n = n.getNext();
