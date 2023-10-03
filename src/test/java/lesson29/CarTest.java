@@ -14,6 +14,10 @@ import static org.junit.Assert.assertTrue;
 
 
 // https://hamcrest.org/JavaHamcrest/tutorial
+/*
+Shortened Hamcrest documentation with examples:
+https://gist.github.com/andriidemus/bd3e7e74c9f89218d4bfae3d910cc36e
+ */
 
 public class CarTest {
     @Test
