@@ -2,6 +2,7 @@ package lesson34;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.BiFunction;
 
 public class B_DontDoLikeThis {
     public static void main(String[] args) {
@@ -43,6 +44,7 @@ public class B_DontDoLikeThis {
                 .thenApplyAsync(
                         s -> getLength(s)
                 )
+                /*
                 .thenAcceptAsync(
                         integer -> finish(integer)
                 )
@@ -50,6 +52,19 @@ public class B_DontDoLikeThis {
                         t -> {
                             System.err.println("Error: " + t.getMessage());
                             return null;
+                        }
+                );
+                 */
+                .handle( // single block to handle both ".thenAccept" and ".exceptionally"
+                        new BiFunction<Integer, Throwable, Void>() {
+                            @Override
+                            public Void apply(Integer integer, Throwable throwable) {
+                                if(throwable != null)
+                                    System.out.println("exeptionally");
+                                else
+                                    finish(integer);
+                                return null;
+                            }
                         }
                 );
 
