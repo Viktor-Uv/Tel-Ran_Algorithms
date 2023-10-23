@@ -13,6 +13,7 @@ public class A_CreateDatabase {
     // http://www.google.com
     // tel:123
     // jdbc:oracle:thin:@localhost:1521:xe
+    // https://www.sqlite.org/index.html
     public static void main(String[] args) {
         String url = "jdbc:sqlite:shop.db";
 
