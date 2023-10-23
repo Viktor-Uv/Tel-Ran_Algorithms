@@ -24,24 +24,37 @@ import java.util.concurrent.ExecutionException;
 
 public class Converter {
     public static void main(String[] args) {
-        CompletableFuture<Double> converter =
+        CompletableFuture<String> converter =
                 CompletableFuture
+                        // суффикс Async значит что этот CF будет выполняться
+                        // на пуле потоков
+                        // если не указать то это будет ForkJoin
                         .supplyAsync(
                                 () -> convert(10, "EUR", "GBP") // 8.7213
                         )
-                        .handle(
-                                (amount, exception) -> {
-                                    if (exception != null) {
-                                        System.err.println("Exception: " + exception.getMessage());
-                                        return null;
+                        // все методы без Async запускаются в потоке в котором
+                        // выполняется .get()
+                        .thenApply(
+                                result -> convert(result, "GBP", "USD")
+                        )
+                        .handle( // .handle is only to return result, not to start another work!
+                                (result, error) -> {
+                                    if (error != null) {
+                                        return error.getMessage();
                                     } else {
-                                        return convert(amount, "GBP", "USD"); // 10.591
+                                        return "" + result; // 10.591
                                     }
                                 }
                         );
+        // Comment to CORRECTION 23.10.2023:
+        // не самый хороший вариант в handle делать еще один асинхронный
+        // вызов - все же handle предназначен для обработки ошибок
+        // Такой вариант не позволит обработать ошибку во втором сетевом вызове
+        // + changed converter to return String
 
+        // цепочка запускается только после вызова get
         try {
-            System.out.println(converter.get()); // 10.591
+            converter.get(); // 10.591
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +72,8 @@ public class Converter {
         try {
             return service.convert(amount, from, to).execute().body().rates.get(to);
         } catch (Exception e) {
+            // если функция выбрасывает CheckedException, то имеет смысл перехватить его
+            // и выбросить заново как UnCheckedException
             throw new RuntimeException(e);
         }
     }
