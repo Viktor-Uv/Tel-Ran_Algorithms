@@ -4,14 +4,14 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/vcs.xml
-.idea/libraries/
-.idea/dbnavigator.xml
-.idea/sqldialects.xml
-.idea/dataSources.xml
+Java Pro/.idea/modules.xml
+Java Pro/.idea/jarRepositories.xml
+Java Pro/.idea/compiler.xml
+Java Pro/.idea/vcs.xml
+Java Pro/.idea/libraries/
+Java Pro/.idea/dbnavigator.xml
+Java Pro/.idea/sqldialects.xml
+Java Pro/.idea/dataSources.xml
 *.iws
 *.iml
 *.ipr
