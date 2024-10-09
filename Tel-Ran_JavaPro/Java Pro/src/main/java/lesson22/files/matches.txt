@@ -1,0 +1,6 @@
+2022, 9, 3, Eintracht Frankfurt, 4:00, RB Leipzig, 49700, Deutsche Bank Park
+2022, 9, 4, FC Augsburg, 0:02, Hertha BSC, 25789, WWK Arena
+2022, 9, 4, Borussia Monchengladbach, 0:01, 1. FSV Mainz 05, 51210, Borussia-Park
+2022, 9, 9, Werder Bremen, 0:01, FC Augsburg, 41000, Weser-Stadion
+2022, 9, 10, Hertha BSC, 2:02, Bayer 04 Leverkusen, 40643, Olympiastadion Berlin
+2022, 9, 10, TSG 1899 Hoffenheim, 4:01, 1. FSV Mainz 05, 20114, PreZero Arena

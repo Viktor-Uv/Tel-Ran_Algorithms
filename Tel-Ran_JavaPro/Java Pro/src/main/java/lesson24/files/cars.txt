@@ -1,0 +1,27 @@
+[
+    {
+        "maker": "BMW",
+        "model": "Z3",
+        "price": 84344.33
+    },
+    {
+        "maker": "Nissan",
+        "model": "Patrol",
+        "price": 24333.23
+    },
+    {
+        "maker": "Peugeot",
+        "model": "207",
+        "price": 135000
+    },
+    {
+        "maker": "Peugeot",
+        "model": "407",
+        "price": 18000
+    },
+    {
+        "maker": "Toyota",
+        "model": "Tundra",
+        "price": 26012.22
+    }
+]
